@@ -3,1086 +3,668 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda - Aplikasi Stunting</title>
+    <title>Aplikasi Stunting</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-    /* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f8fafc;
-    color: #1f2937;
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+    <style>
+        /* General Reset and Base Styles */
 
-/* Variables */
-:root {
-    --primary: #4f46e5;
-    --secondary: #10b981;
-    --accent: #ec4899;
-    --background: #ffffff;
-    --text: #1f2937;
-    --border: #e5e7eb;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.05);
-    --transition: all 0.3s ease;
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(to bottom right, #e0e7ff, #f3e8ff, #fce7f3);
+        }
 
-/* Typography */
-h1 {
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-}
+        /* Ensure main content has enough padding to avoid overlap with footer and bottom nav */
+        main {
+            flex: 1;
+            padding-bottom: 120px; /* Increased to account for footer and bottom navigation */
+        }
 
-h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 1rem;
-}
+        /* Glassmorphism Effect */
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
 
-h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text);
-}
+        }
 
-p {
-    font-size: 1rem;
-    color: #6b7280;
-    margin-bottom: 1rem;
-}
+        /* Primary Colors */
+        :root {
+            --primary: #7c3aed; /* Purple */
+            --secondary: #ec4899; /* Pink */
+            --accent: #10b981; /* Green */
+            --text: #1f2937; /* Dark Gray */
+            --light-text: hsl(220, 9%, 46%); /* Light Gray */
+        }
 
-/* Header Styles */
-.app-header {
-    background: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(12px);
-    box-shadow: var(--shadow-light);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 1rem 0;
-}
+        /* Animation for Floating Effect */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
 
-.app-header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
 
-.app-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--primary);
-}
+        /* ------------------ Home Page Styles ------------------ */
+        .hero-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
 
-.desktop-nav {
-    display: flex;
-    gap: 2rem;
-}
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
 
-.nav-link {
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
-    font-size: 1rem;
-    transition: var(--transition);
-}
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
 
-.nav-link:hover,
-.nav-link.active {
-    color: var(--primary);
-    transform: translateY(-2px);
-}
+        .info-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: rgba(167, 139, 250, 0.1);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
 
-/* Main Content */
-.main-content {
-    flex: 1;
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-}
+        .info-banner .material-icons-outlined {
+            font-size: 1.2rem;
+        }
 
-/* Floating Action Button */
-.fab {
-    position: fixed;
-    bottom: 2.5rem;
-    right: 2.5rem;
-    background: var(--primary);
-    color: white;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow);
-    text-decoration: none;
-    transition: var(--transition);
-    z-index: 1000;
-}
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
 
-.fab:hover {
-    background: #4338ca;
-    transform: scale(1.1);
-}
+        .feature-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-.fab .material-icons-outlined {
-    font-size: 1.75rem;
-}
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
 
-/* Bottom Navigation */
-.bottom-nav {
-    background: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(12px);
-    box-shadow: var(--shadow-light);
-    padding: 0.75rem 0;
-    position: sticky;
-    bottom: 0;
-    z-index: 1000;
-}
+        .feature-icon {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+        }
 
-.bottom-nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-}
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
 
-.bottom-nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text);
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: var(--transition);
-}
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
 
-.bottom-nav-item:hover,
-.bottom-nav-item.active {
-    color: var(--primary);
-    transform: translateY(-2px);
-}
+        /* CTA Button */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 1rem auto;
+            display: block;
+            width: fit-content;
+        }
 
-.bottom-nav-item .material-icons-outlined {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
-}
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
 
-/* Home Page Styles */
-.home-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-}
+        .cta-button .material-icons-outlined {
+            font-size: 1.2rem;
+        }
 
-.hero-card {
-    background: var(--background);
-    border-radius: 1rem;
-    padding: 2.5rem;
-    box-shadow: var(--shadow);
-    text-align: center;
-}
+        .cta-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--light-text);
+        }
 
-.hero-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 0.75rem;
-}
+        /* Stats Cards */
+        .stats-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
+            text-align: center;
+        }
 
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: #6b7280;
-    margin-bottom: 1.5rem;
-}
+        .stats-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
 
-.info-banner {
-    background: var(--secondary);
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.95rem;
-    margin-top: 1.5rem;
-}
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
 
-.info-banner .material-icons-outlined {
-    font-size: 1.5rem;
-}
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
 
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-}
+        .stat-desc {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
 
-.feature-card {
-    background: var(--background);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: var(--shadow-light);
-    transition: var(--transition);
-}
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
 
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow);
-}
+        .info-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
-.feature-icon {
-    background: var(--primary);
-    color: white;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-}
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
 
-.feature-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-}
+        .info-card-header .material-icons-outlined {
+            font-size: 2rem;
+            color: var(--primary);
+        }
 
-.feature-desc {
-    font-size: 0.9rem;
-    color: #6b7280;
-}
+        .info-card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+        }
 
-.cta-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: var(--primary);
-    color: white;
-    padding: 0.75rem 2rem;
-    border-radius: 0.75rem;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: var(--transition);
-    margin: 1.5rem auto;
-}
+        .info-card-desc {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
 
-.cta-button:hover {
-    background: #4338ca;
-    transform: translateY(-2px);
-}
+        /* ------------------ Stunting Check Page Styles ------------------ */
+        .stunting-container {
+            padding: 2rem 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-.cta-button .material-icons-outlined {
-    font-size: 1.5rem;
-}
+        .stunting-container h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
 
-.cta-note {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #6b7280;
-    font-style: italic;
-}
+        .stunting-container form {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
-.stats-card {
-    background: var(--background);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    text-align: center;
-}
+        .stunting-container form div {
+            margin-bottom: 1.5rem;
+        }
 
-.stats-title {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 1.5rem;
-}
+        .stunting-container label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
 
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1.5rem;
-}
+        .stunting-container input,
+        .stunting-container select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text);
+            transition: border-color 0.3s ease;
+        }
 
-.stat-number {
-    font-size: 1.75rem;
-    font-weight: 700;
-}
+        .stunting-container input:focus,
+        .stunting-container select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
 
-.stat-desc {
-    font-size: 0.9rem;
-    color: #6b7280;
-}
+        .stunting-container input[type="radio"] {
+            width: auto;
+            margin-right: 0.5rem;
+        }
 
-.info-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
+        .stunting-container .error {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
 
-.info-card {
-    background: var(--background);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: var(--shadow-light);
-    transition: var(--transition);
-}
+        .stunting-container button,
+        .stunting-container a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: fit-content;
+            margin: 1rem auto;
+        }
 
-.info-card:hover {
-    box-shadow: var(--shadow);
-}
+        .stunting-container button:hover,
+        .stunting-container a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
 
-.info-card-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
+        .stunting-container .result {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-.info-card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text);
-}
+        .stunting-container .result span {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
 
-.info-card-desc {
-    font-size: 0.9rem;
-    color: #6b7280;
-}
+        .stunting-container .result p {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
 
-/* About Page Styles */
+        /* ------------------ About Page Styles ------------------ */
 .about-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: var(--background);
-    border-radius: 1rem;
-    padding: 2.5rem;
-    box-shadow: var(--shadow);
-    line-height: 1.7;
-}
-
-.about-container h1 {
-    color: var(--primary);
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    border-bottom: 3px solid var(--primary);
-    padding-bottom: 1rem;
-}
-
-.about-container h2 {
-    color: var(--text);
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 2rem 0 1rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.about-container h2::before {
-    content: "●";
-    color: var(--primary);
-    font-size: 1.2rem;
-}
-
-.about-container p {
-    color: #4b5563;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    text-align: justify;
-}
-
-.about-container ul {
-    background: #f9fafb;
-    border-left: 4px solid var(--secondary);
-    padding: 1.5rem 1.5rem 1.5rem 2.5rem;
-    border-radius: 0.5rem;
-    margin: 1.5rem 0;
-}
-
-.about-container ul li {
-    color: #374151;
-    font-size: 0.95rem;
-    margin-bottom: 0.75rem;
-    position: relative;
-}
-
-.about-container ul li::marker {
-    color: var(--secondary);
-    font-weight: bold;
-}
-
-.about-container a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
-    border-bottom: 1px solid transparent;
-}
-
-.about-container a:hover {
-    color: #4338ca;
-    border-bottom-color: #4338ca;
-}
-
-/* Contact Section Styling */
-.contact-section {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    margin: 2rem 0;
-}
-
-.contact-section h2 {
-    color: white;
-    margin-bottom: 1rem;
-}
-
-.contact-section h2::before {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.contact-section p {
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 1rem;
-}
-
-.contact-section ul {
-    background: rgba(255, 255, 255, 0.1);
-    border-left: 4px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-}
-
-.contact-section ul li {
-    color: rgba(255, 255, 255, 0.95);
-}
-
-.contact-section a {
-    color: white;
-    font-weight: 600;
-}
-
-.contact-section a:hover {
-    color: #e0e7ff;
-    border-bottom-color: #e0e7ff;
-}
-
-/* Back to Check Button */
-.back-button-container {
-    text-align: center;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-}
-
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    padding: 0.875rem 2rem;
-    border-radius: 2rem;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: var(--transition);
-    box-shadow: var(--shadow-light);
-}
-
-.back-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-    background: linear-gradient(135deg, #4338ca, #059669);
-}
-
-.back-button::before {
-    content: "🚀";
-    font-size: 1.1rem;
-}
-
-/* Stunting Check Form Styles */
-.stunting-form-container {
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.form-step {
-    background: var(--background);
-    border-radius: 1rem;
-    padding: 2.5rem;
-    box-shadow: var(--shadow);
-    animation: fadeInUp 0.5s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.form-step h1 {
-    color: var(--primary);
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    position: relative;
-}
-
-.form-step h1::after {
-    content: "";
-    position: absolute;
-    bottom: -0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border-radius: 2px;
-}
-
-/* Form Fields */
-.form-field {
-    margin-bottom: 1.5rem;
-}
-
-.form-field label {
-    display: block;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-}
-
-.form-field input,
-.form-field select {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid var(--border);
-    border-radius: 0.75rem;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    transition: var(--transition);
-    background: white;
-}
-
-.form-field input:focus,
-.form-field select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-    transform: translateY(-1px);
-}
-
-.form-field input::placeholder {
-    color: #9ca3af;
-}
-
-/* Question Styling */
-.question-container {
-    background: #f8fafc;
-    border: 2px solid var(--border);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: var(--transition);
-}
-
-.question-container:hover {
-    border-color: var(--primary);
-    background: #f0f4ff;
-}
-
-.question-text {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
-
-.radio-group {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
-.radio-option {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    cursor: pointer;
-    padding: 0.75rem 1.25rem;
-    border: 2px solid var(--border);
-    border-radius: 0.75rem;
-    transition: var(--transition);
-    background: white;
-    min-width: 120px;
-    justify-content: center;
-}
-
-.radio-option:hover {
-    border-color: var(--primary);
-    background: #f0f4ff;
-    transform: translateY(-1px);
-}
-
-.radio-option input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    accent-color: var(--primary);
-    margin: 0;
-}
-
-.radio-option input[type="radio"]:checked + span {
-    color: var(--primary);
-    font-weight: 600;
-}
-
-.radio-option:has(input[type="radio"]:checked) {
-    border-color: var(--primary);
-    background: var(--primary);
-    color: white;
-}
-
-.radio-option:has(input[type="radio"]:checked) span {
-    color: white;
-}
-
-.radio-option span {
-    font-weight: 500;
-    font-size: 1rem;
-}
-
-/* Submit Button */
-.submit-button {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    padding: 1rem 3rem;
-    border: none;
-    border-radius: 2rem;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: var(--transition);
-    display: block;
-    margin: 2rem auto 0;
-    min-width: 200px;
-    position: relative;
-    overflow: hidden;
-}
-
-.submit-button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.submit-button:hover::before {
-    left: 100%;
-}
-
-.submit-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
-}
-
-/* Results Section */
-.results-container {
-    background: var(--background);
-    border-radius: 1rem;
-    padding: 2.5rem;
-    box-shadow: var(--shadow);
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.results-header {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    margin-bottom: 2rem;
-}
-
-.results-status {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-.results-score {
-    font-size: 2rem;
-    font-weight: 800;
-}
-
-.results-explanation {
-    background: #f9fafb;
-    border-left: 4px solid var(--secondary);
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    margin: 1.5rem 0;
-    text-align: left;
-}
-
-.results-explanation strong {
-    color: var(--primary);
-    font-size: 1.1rem;
-}
-
-.results-explanation p {
-    margin-top: 1rem;
-    color: #374151;
-    line-height: 1.7;
-}
-
-.repeat-button {
-    background: var(--primary);
-    color: white;
-    padding: 0.875rem 2rem;
-    border-radius: 2rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: var(--transition);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.repeat-button:hover {
-    background: #4338ca;
-    transform: translateY(-2px);
-}
-
-.repeat-button::before {
-    content: "🔄";
-}
-
-/* Error Messages */
-.error-message {
-    color: var(--accent);
-    font-size: 0.85rem;
-    margin-top: 0.5rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.error-message::before {
-    content: "⚠";
-    font-size: 1rem;
-}
-
-/* Progress Indicator */
-.step-indicator {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-    gap: 1rem;
-}
-
-.step-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--border);
-    transition: var(--transition);
-}
-
-.step-dot.active {
-    background: var(--primary);
-    transform: scale(1.2);
-}
-
-.step-dot.completed {
-    background: var(--secondary);
-}
-
-/* Original Form Styles (for compatibility) */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 600px;
-    margin: 2rem auto;
-    background: var(--background);
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: var(--shadow-light);
-}
-
-form div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-label {
-    font-weight: 500;
-    color: var(--text);
-    font-size: 0.95rem;
-}
-
-input, select {
-    padding: 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    transition: var(--transition);
-}
-
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
-
-button {
-    background: var(--primary);
-    color: white;
-    padding: 0.75rem 2rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: var(--transition);
-    align-self: flex-end;
-}
-
-button:hover {
-    background: #4338ca;
-    transform: translateY(-2px);
-}
-
-span[wire\\:error] {
-    color: var(--accent);
-    font-size: 0.85rem;
-    margin-top: 0.25rem;
-}
-
-/* Radio Buttons */
-form div label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-}
-
-form div input[type="radio"] {
-    accent-color: var(--primary);
-}
-
-/* About Page Original Styles */
-ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-ul li {
-    margin-bottom: 0.5rem;
-    color: #6b7280;
-}
-
-a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-a:hover {
-    color: #4338ca;
-    text-decoration: underline;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .desktop-nav {
-        display: none;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
     }
 
-    .app-header-content {
-        flex-direction: column;
-        gap: 1rem;
+    .about-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 1.5rem;
     }
 
-    .app-title {
+    .about-section {
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
         font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 0.75rem;
     }
 
-    .bottom-nav {
-        display: block;
+    .about-text {
+        font-size: 0.9rem;
+        color: var(--light-text);
+        line-height: 1.6;
+        margin-bottom: 1rem;
     }
 
-    .bottom-nav-content {
-        gap: 1.5rem;
+    .highlight {
+        color: var(--primary);
+        font-weight: 600;
     }
 
-    .features-grid,
-    .stats-grid,
-    .info-cards {
-        grid-template-columns: 1fr;
+    .about-list {
+        list-style: none;
+        padding-left: 0;
     }
 
-    .fab {
-        bottom: 6rem;
-        right: 1.5rem;
-        width: 48px;
-        height: 48px;
+    .about-item {
+        font-size: 0.9rem;
+        color: var(--light-text);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
-    .fab .material-icons-outlined {
-        font-size: 1.5rem;
+    .about-item .material-icons-outlined {
+        font-size: 1.2rem;
+        color: var(--primary);
     }
 
-    .hero-card {
-        padding: 1.5rem;
+    .contact-link {
+        color: var(--primary);
+        text-decoration: none;
+        transition: color 0.3s ease;
     }
 
-    .hero-title {
-        font-size: 1.75rem;
+    .contact-link:hover {
+        color: var(--secondary);
     }
 
-    .hero-subtitle {
-        font-size: 1.1rem;
+    .button-container {
+        text-align: center;
     }
 
-    form {
-        padding: 1.5rem;
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .about-container,
-    .form-step,
-    .results-container {
-        padding: 1.5rem;
-        margin: 1rem;
+    .cta-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
-    .about-container h1 {
-        font-size: 1.75rem;
+    .cta-button .material-icons-outlined {
+        font-size: 1.2rem;
     }
 
-    .form-step h1 {
-        font-size: 1.75rem;
+    @media (max-width: 768px) {
+        .about-container {
+            padding: 1.5rem;
+        }
+
+        .about-title {
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+        }
+
+        .about-text, .about-item {
+            font-size: 0.85rem;
+        }
     }
 
-    .radio-group {
-        flex-direction: column;
-        gap: 1rem;
-    }
+        /* Footer Styles */
+        footer {
+            z-index: 30; /* Ensure footer is above most elements but below floating button and nav */
+            margin-top: auto; /* Push footer to bottom */
+            padding-bottom: 80px; /* Extra padding to avoid overlap with bottom nav on mobile */
+        }
 
-    .radio-option {
-        justify-content: flex-start;
-        min-width: unset;
-    }
+        /* Floating Button Adjustments */
+        .floating-button {
+            bottom: 100px; /* Increased to avoid footer overlap */
+            z-index: 50; /* Ensure it’s above footer and bottom nav */
+        }
 
-    .submit-button {
-        width: 100%;
-        margin: 1.5rem 0 0;
-    }
+        /* Bottom Navigation Adjustments */
+        nav.bottom-nav {
+            z-index: 40; /* Above footer but below floating button */
+        }
 
-    .contact-section {
-        padding: 1.5rem;
-    }
-}
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
 
-@media (min-width: 769px) {
-    .bottom-nav {
-        display: none;
-    }
-}
-</style>
+            .hero-subtitle {
+                font-size: 1rem;
+            }
 
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .stunting-container h1,
+            .about-container h1 {
+                font-size: 1.75rem;
+            }
+
+            .stunting-container form,
+            .stunting-container .result {
+                padding: 1.5rem;
+            }
+
+            /* Ensure footer is visible above bottom navigation */
+            footer {
+                padding-bottom: 100px; /* Extra padding for bottom nav */
+            }
+
+            /* Adjust floating button for mobile */
+            .floating-button {
+                bottom: 120px; /* Higher to avoid bottom nav and footer */
+            }
+        }
+
+        /* Animation for mobile nav slide-in */
+        @keyframes slide-in {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .animate-slide-in {
+            animation: slide-in 0.3s ease-in-out;
+        }
+    </style>
 </head>
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-100 font-[Poppins] min-h-screen flex flex-col">
+    <!-- Header with Enhanced Glass Effect -->
+    <header class="glass-effect bg-white/80 sticky top-0 z-50 shadow-xl border-b border-white/20">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <span class="text-white text-2xl">🌱</span>
+                </div>
+                <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
+                    Aplikasi Stunting
+                </h1>
+            </div>
 
-<body>
-    <!-- Modern Header with Glassmorphism -->
-    <header class="app-header">
-        <div class="app-header-content">
-            <h1 class="app-title">🌸 Aplikasi Stunting</h1>
-            <nav class="desktop-nav">
-                <a href="{{ route('home') }}" class="nav-link active">Beranda</a>
-                <a href="{{ route('stunting-check') }}" class="nav-link">Cek Stunting</a>
-                <a href="{{ route('about') }}" class="nav-link">Tentang</a>
-
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex gap-8 text-gray-700 font-medium" aria-label="Navigasi utama">
+                <a href="{{ route('home') }}" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50 {{ Route::currentRouteName() === 'home' ? 'text-purple-600 bg-purple-50' : '' }}">
+                    <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">home</span>
+                    Beranda
+                </a>
+                <a href="{{ route('stunting-check') }}" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50 {{ Route::currentRouteName() === 'stunting-check' ? 'text-purple-600 bg-purple-50' : '' }}">
+                    <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">assessment</span>
+                    Cek Stunting
+                </a>
+                <a href="{{ route('about') }}" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50 {{ Route::currentRouteName() === 'about' ? 'text-purple-600 bg-purple-50' : '' }}">
+                    <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">info</span>
+                    Tentang
+                </a>
             </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden p-2 rounded-lg hover:bg-purple-100 transition-colors" aria-label="Buka menu navigasi" id="mobile-menu-button">
+                <span class="material-icons-outlined text-purple-700">menu</span>
+            </button>
         </div>
+
+        <!-- Mobile Navigation Menu -->
+        <nav class="mobile-nav hidden md:hidden bg-white/90 glass-effect shadow-xl" id="mobile-nav">
+            <div class="container mx-auto px-6 py-4">
+                <a href="{{ route('home') }}" class="block py-2 text-gray-700 hover:text-purple-600 transition-colors {{ Route::currentRouteName() === 'home' ? 'text-purple-600' : '' }}">
+                    <span class="material-icons-outlined align-middle">home</span> Beranda
+                </a>
+                <a href="{{ route('stunting-check') }}" class="block py-2 text-gray-700 hover:text-purple-600 transition-colors {{ Route::currentRouteName() === 'stunting-check' ? 'text-purple-600' : '' }}">
+                    <span class="material-icons-outlined align-middle">assessment</span> Cek Stunting
+                </a>
+                <a href="{{ route('about') }}" class="block py-2 text-gray-700 hover:text-purple-600 transition-colors {{ Route::currentRouteName() === 'about' ? 'text-purple-600' : '' }}">
+                    <span class="material-icons-outlined align-middle">info</span> Tentang
+                </a>
+            </div>
+        </nav>
     </header>
 
-    <!-- Main Content Area -->
-   <main class="main-content">
-{{ $slot }}
-    <slot>
-
+    <main>
+        {{ $slot }}
     </main>
 
-    <!-- Floating Action Button with Pulse Animation -->
-    <a href="{{ route('stunting-check') }}" class="fab" aria-label="Cek Stunting">
-        <span class="material-icons-outlined">assessment</span>
+    <!-- Enhanced Footer -->
+    <footer class="glass-effect bg-purple-800/90 text-white py-8 mt-auto z-30">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg flex items-center justify-center">
+                            <span class="text-white">🌱</span>
+                        </div>
+                        <h4 class="text-xl font-bold">Aplikasi Stunting</h4>
+                    </div>
+                    <p class="text-purple-100">Solusi terpercaya untuk mencegah stunting pada anak Indonesia.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-3">Menu</h5>
+                    <div class="space-y-2">
+                        <a href="{{ route('home') }}" class="block text-purple-100 hover:text-white transition-colors">Beranda</a>
+                        <a href="{{ route('stunting-check') }}" class="block text-purple-100 hover:text-white transition-colors">Cek Stunting</a>
+                        <a href="{{ route('about') }}" class="block text-purple-100 hover:text-white transition-colors">Tentang</a>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-3">Kontak</h5>
+                    <div class="space-y-2 text-purple-100">
+                        <p><span class="material-icons-outlined align-middle">email</span> <a href="mailto:info@stuntingapp.id" class="hover:text-white transition-colors">info@stuntingapp.id</a></p>
+                        <p><span class="material-icons-outlined align-middle">phone</span> <a href="https://wa.me/6281234567890" target="_blank" class="hover:text-white transition-colors">+62 812-3456-7890</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-purple-600 mt-8 pt-6 text-center">
+                <p class="text-purple-100">&copy; {{ date('Y') }} Aplikasi Stunting. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Enhanced Floating Button -->
+    <a href="{{ route('stunting-check') }}"
+       class="fixed bottom-20 right-6 w-16 h-16 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 text-white flex items-center justify-center shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-110 group z-50 floating-button"
+       aria-label="Cek Stunting Sekarang">
+        <span class="material-icons-outlined text-2xl group-hover:scale-110 transition-transform">health_and_safety</span>
     </a>
 
-    <!-- Bottom Navigation with Modern Design -->
-    <nav class="bottom-nav">
-        <div class="bottom-nav-content">
-            <a href="{{ route('home') }}" class="bottom-nav-item {{ Route::currentRouteName() === 'home' ? 'active' : '' }}">
+    <!-- Enhanced Bottom Navigation (Mobile Only) -->
+    <nav class="fixed bottom-0 w-full glass-effect bg-white/90 shadow-2xl border-t border-white/20 md:hidden z-40 bottom-nav">
+        <div class="flex justify-around py-3">
+            <a href="{{ route('home') }}" class="flex flex-col items-center text-gray-600 {{ Route::currentRouteName() === 'home' ? 'text-purple-600 bg-purple-50' : '' }} transition-all duration-300 px-4 py-1 rounded-xl" aria-label="Beranda">
                 <span class="material-icons-outlined">home</span>
-                <span>Beranda</span>
+                <span class="text-xs font-medium">Beranda</span>
             </a>
-            <a href="{{ route('stunting-check') }}" class="bottom-nav-item {{ Route::currentRouteName() === 'stunting-check' ? 'active' : '' }}">
+            <a href="{{ route('stunting-check') }}" class="flex flex-col items-center text-gray-600 {{ Route::currentRouteName() === 'stunting-check' ? 'text-purple-600 bg-purple-50' : '' }} transition-all duration-300 px-4 py-1 rounded-xl" aria-label="Cek Stunting">
                 <span class="material-icons-outlined">assessment</span>
-                <span>Cek Stunting</span>
+                <span class="text-xs font-medium">Cek</span>
             </a>
-            <a href="{{ route('about') }}" class="bottom-nav-item {{ Route::currentRouteName() === 'about' ? 'active' : '' }}">
+            <a href="{{ route('about') }}" class="flex flex-col items-center text-gray-600 {{ Route::currentRouteName() === 'about' ? 'text-purple-600 bg-purple-50' : '' }} transition-all duration-300 px-4 py-1 rounded-xl" aria-label="Tentang">
                 <span class="material-icons-outlined">info</span>
-                <span>Tentang</span>
+                <span class="text-xs font-medium">Tentang</span>
             </a>
-
         </div>
     </nav>
 
     @livewireScripts
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('hidden');
+            mobileNav.classList.toggle('animate-slide-in');
+        });
+    </script>
 </body>
 </html>
