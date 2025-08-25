@@ -557,20 +557,27 @@
             </div>
 
             <!-- Desktop Navigation -->
-            <nav class="hidden md:flex gap-8 text-gray-700 font-medium" aria-label="Navigasi utama">
-                <a href="{{ route('home') }}" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50 {{ Route::currentRouteName() === 'home' ? 'text-purple-600 bg-purple-50' : '' }}">
-                    <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">home</span>
-                    Beranda
-                </a>
-                <a href="{{ route('stunting-check') }}" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50 {{ Route::currentRouteName() === 'stunting-check' ? 'text-purple-600 bg-purple-50' : '' }}">
-                    <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">assessment</span>
-                    Cek Stunting
-                </a>
-                <a href="{{ route('about') }}" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50 {{ Route::currentRouteName() === 'about' ? 'text-purple-600 bg-purple-50' : '' }}">
-                    <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">info</span>
-                    Tentang
-                </a>
-            </nav>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex gap-8 text-gray-700 font-medium" aria-label="Navigasi utama">
+    <a href="{{ route('home') }}" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50 {{ Route::currentRouteName() === 'home' ? 'text-purple-600 bg-purple-50' : '' }}">
+        <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">home</span>
+        Beranda
+    </a>
+    <a href="{{ route('stunting-check') }}" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50 {{ Route::currentRouteName() === 'stunting-check' ? 'text-purple-600 bg-purple-50' : '' }}">
+        <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">assessment</span>
+        Cek Stunting
+    </a>
+    <a href="{{ route('about') }}" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50 {{ Route::currentRouteName() === 'about' ? 'text-purple-600 bg-purple-50' : '' }}">
+        <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">info</span>
+        Tentang
+    </a>
+    <!-- Login Dashboard -->
+    <a href="https://raahting.com/yes/login" target="_blank" class="hover:text-purple-600 transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-purple-50">
+        <span class="material-icons-outlined text-sm group-hover:scale-110 transition-transform">login</span>
+        Login Dashboard
+    </a>
+</nav>
+
 
             <!-- Mobile Menu Button -->
             <button class="md:hidden p-2 rounded-lg hover:bg-purple-100 transition-colors" aria-label="Buka menu navigasi" id="mobile-menu-button">
