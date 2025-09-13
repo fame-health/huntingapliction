@@ -87,9 +87,10 @@
 <h1>Hasil Stunting</h1>
 
 <div class="stunting-result
-    @if($result->interpretation === 'normal') result-normal
-    @elseif($result->interpretation === 'risiko') result-warning
-    @else result-danger @endif">
+    @if($result->interpretation === 'rendah') result-low
+    @elseif($result->interpretation === 'sedang') result-medium
+    @elseif($result->interpretation === 'tinggi') result-high
+    @endif">
 
     <div class="result-stats">
         <span><strong>Status:</strong> {{ ucfirst($result->interpretation) }}</span><br>
@@ -104,6 +105,7 @@
     <span class="material-icons-outlined">replay</span>
     Ulangi
 </a>
+
 
     @endif
 </div>

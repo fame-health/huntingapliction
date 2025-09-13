@@ -362,22 +362,22 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* Status normal */
-.result-normal {
+/* Status rendah (hijau) */
+.result-low {
     background: #ecfdf5;
     border-left: 6px solid #10b981;
     color: #065f46;
 }
 
-/* Status risiko */
-.result-warning {
+/* Status sedang (kuning) */
+.result-medium {
     background: #fef3c7;
     border-left: 6px solid #f59e0b;
     color: #92400e;
 }
 
-/* Status bahaya */
-.result-danger {
+/* Status tinggi (merah) */
+.result-high {
     background: #fee2e2;
     border-left: 6px solid #ef4444;
     color: #991b1b;
@@ -388,6 +388,7 @@
     font-weight: 600;
     margin-bottom: 1rem;
 }
+
 
 
         /* ------------------ About Page Styles ------------------ */
