@@ -3,24 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Stunting</title>
+
+    <!-- ✅ SEO Dynamic -->
+    <title>{{ $title ?? 'Aplikasi Stunting' }}</title>
+    <meta name="description" content="{{ $description ?? 'Aplikasi Stunting membantu pencegahan stunting dengan cek risiko, edukasi gizi, dan panduan kesehatan anak.' }}">
+    <meta name="keywords" content="{{ $keywords ?? 'stunting, kesehatan anak, gizi, aplikasi stunting, pencegahan stunting' }}">
+    <meta name="author" content="Aplikasi Stunting">
+
+    <!-- Open Graph (Facebook/WhatsApp) -->
+    <meta property="og:title" content="{{ $title ?? 'Aplikasi Stunting' }}">
+    <meta property="og:description" content="{{ $description ?? 'Cek risiko stunting anak secara online, cepat, dan gratis.' }}">
+    <meta property="og:image" content="{{ asset('images/logo.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title ?? 'Aplikasi Stunting' }}">
+    <meta name="twitter:description" content="{{ $description ?? 'Cek risiko stunting anak secara online, cepat, dan gratis.' }}">
+    <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
+
+    <!-- Favicon dan App Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
+    <!-- Android Chrome Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('android-chrome-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('android-chrome-512x512.png') }}">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <!-- Favicon dan App Icons -->
-<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
-<link rel="manifest" href="{{ asset('site.webmanifest') }}">
-<link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-
-<!-- Android Chrome Icons -->
-<link rel="icon" type="image/png" sizes="192x192" href="{{ asset('android-chrome-192x192.png') }}">
-<link rel="icon" type="image/png" sizes="512x512" href="{{ asset('android-chrome-512x512.png') }}">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-100 font-[Poppins] min-h-screen flex flex-col">
     <!-- Header with Enhanced Glass Effect -->
