@@ -12,7 +12,13 @@ use App\Models\Result;
 #[Layout('layouts.front')]
 class StuntingCheckPage extends Component
 {
+    // 🔹 Meta SEO
     public $title = 'Cek Stunting | Aplikasi Stunting';
+    public $description = 'Gunakan kuesioner interaktif untuk mengetahui risiko stunting anak berdasarkan pola makan, gizi, dan lingkungan.';
+    public $keywords = 'cek stunting, aplikasi stunting, tes gizi anak, pencegahan stunting, kesehatan anak';
+    public $image = '/images/stunting-check-cover.jpg';
+
+    // 🔹 Data form & logic
     public $name = '';
     public $gender = '';
     public $birth_date = '';
@@ -31,7 +37,7 @@ class StuntingCheckPage extends Component
     public function mount()
     {
         $this->questions = Question::all()->toArray();
-        // Inisialisasi array jawaban
+        // Inisialisasi jawaban
         foreach ($this->questions as $question) {
             $this->answers[$question['id']] = null;
         }
@@ -45,7 +51,6 @@ class StuntingCheckPage extends Component
             'birth_date' => 'required|date|before:today',
         ]);
 
-        // Simpan data tamu
         $guest = Guest::create([
             'name' => $this->name,
             'gender' => $this->gender,
@@ -65,26 +70,26 @@ class StuntingCheckPage extends Component
         $guestId = session('guest_id');
         $score = 0;
 
-        // Simpan jawaban & hitung skor
+        // Simpan jawaban
         foreach ($this->answers as $questionId => $answer) {
             Answer::create([
                 'guest_id' => $guestId,
                 'question_id' => $questionId,
                 'answer' => $answer,
             ]);
-            $score += $answer; // Ya = 1, Tidak = 0
+            $score += $answer;
         }
 
-        // Tentukan interpretasi berdasarkan kuesioner
+        // Interpretasi
         if ($score >= 11) {
             $interpretation = 'tinggi';
-            $explanation = 'Risiko stunting tinggi. Berdasarkan WHO & UNICEF Joint Malnutrition Report 2021, skor tinggi menunjukkan paparan risiko ganda seperti gizi buruk, infeksi berulang, lingkungan tidak sehat, dan masalah sosial-ekonomi. Segera lakukan intervensi gizi dan konsultasi dengan tenaga kesehatan.';
+            $explanation = 'Risiko stunting tinggi. Berdasarkan WHO & UNICEF Joint Malnutrition Report 2021...';
         } elseif ($score >= 6) {
             $interpretation = 'sedang';
-            $explanation = 'Risiko stunting sedang. Studi (Black et al., 2013) menunjukkan bahwa faktor risiko sedang tetap dapat berkembang menjadi stunting jika tidak ada intervensi. Perbaiki pola makan, sanitasi, dan akses layanan kesehatan.';
+            $explanation = 'Risiko stunting sedang. Studi (Black et al., 2013)...';
         } else {
             $interpretation = 'rendah';
-            $explanation = 'Risiko stunting rendah. Berdasarkan Lancet 2013, fokuskan pada pencegahan dan pemeliharaan gizi anak serta pemantauan pertumbuhan secara rutin.';
+            $explanation = 'Risiko stunting rendah. Berdasarkan Lancet 2013...';
         }
 
         // Simpan hasil
@@ -103,6 +108,12 @@ class StuntingCheckPage extends Component
         return view('livewire.front.stunting-check-page', [
             'questions' => $this->questions,
             'result' => $this->result,
+
+            // 🔹 kirim meta ke layout
+            'title' => $this->title,
+            'description' => $this->description,
+            'keywords' => $this->keywords,
+            'image' => $this->image,
         ]);
     }
 }

@@ -9,9 +9,15 @@ use Livewire\Attributes\Layout;
 class HomePage extends Component
 {
     public $title = 'Home | Aplikasi Stunting';
+    public $description = 'Aplikasi edukasi stunting: definisi, dampak, penyebab, dan pencegahan.';
 
     public function render()
     {
-        return view('livewire.front.home-page');
+        // Lempar data ke view
+        return view('livewire.front.home-page')
+            ->with([
+                'title' => $this->title,
+                'description' => $this->description,
+            ]);
     }
 }

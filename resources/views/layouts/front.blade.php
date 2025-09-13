@@ -7,6 +7,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <!-- Favicon dan App Icons -->
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+<link rel="manifest" href="{{ asset('site.webmanifest') }}">
+<link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
+<!-- Android Chrome Icons -->
+<link rel="icon" type="image/png" sizes="192x192" href="{{ asset('android-chrome-192x192.png') }}">
+<link rel="icon" type="image/png" sizes="512x512" href="{{ asset('android-chrome-512x512.png') }}">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 
@@ -16,9 +27,12 @@
     <header class="glass-effect bg-white/80 sticky top-0 z-50 shadow-xl border-b border-white/20">
         <div class="container mx-auto flex justify-between items-center py-4 px-6">
             <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
-                    <span class="text-white text-2xl">🌱</span>
-                </div>
+<div>
+    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-12 h-12">
+</div>
+
+
+
                 <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
                     Aplikasi Stunting
                 </h1>
@@ -84,9 +98,10 @@
             <div class="grid md:grid-cols-3 gap-8">
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg flex items-center justify-center">
-                            <span class="text-white">🌱</span>
-                        </div>
+<div>
+    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-12 h-12">
+</div>
+
                         <h4 class="text-xl font-bold">Aplikasi Stunting</h4>
                     </div>
                     <p class="text-purple-100">Solusi terpercaya untuk mencegah stunting pada anak Indonesia.</p>
