@@ -84,18 +84,26 @@
             @endforeach
         </form>
     @else
-        <h1>Hasil Stunting</h1>
-        <div class="result">
-            <div class="result-stats">
-                <span>Status: {{ ucfirst($result->interpretation) }}</span>
-                <span>Skor: {{ $result->score }}</span>
-            </div>
-            <p><strong>Penjelasan:</strong></p>
-            <p>{{ $result->explanation }}</p>
-        </div>
-        <a href="{{ route('stunting-check') }}" class="cta-button">
-            <span class="material-icons-outlined">replay</span>
-            Ulangi
-        </a>
+<h1>Hasil Stunting</h1>
+
+<div class="stunting-result
+    @if($result->interpretation === 'normal') result-normal
+    @elseif($result->interpretation === 'risiko') result-warning
+    @else result-danger @endif">
+
+    <div class="result-stats">
+        <span><strong>Status:</strong> {{ ucfirst($result->interpretation) }}</span><br>
+        <span><strong>Skor:</strong> {{ $result->score }}</span>
+    </div>
+
+    <p><strong>Penjelasan:</strong></p>
+    <p>{{ $result->explanation }}</p>
+</div>
+
+<a href="{{ route('stunting-check') }}" class="cta-button">
+    <span class="material-icons-outlined">replay</span>
+    Ulangi
+</a>
+
     @endif
 </div>
